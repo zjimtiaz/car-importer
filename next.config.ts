@@ -6,16 +6,14 @@ const wordpressUrl = process.env.WORDPRESS_URL;
 const nextConfig: NextConfig = {
   output: "standalone",
   images: {
-    remotePatterns: wordpressHostname
-      ? [
-          {
-            protocol: "https",
-            hostname: wordpressHostname,
-            port: "",
-            pathname: "/**",
-          },
-        ]
-      : [],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: wordpressHostname || "carimporters.co.uk",
+        port: "",
+        pathname: "/**",
+      },
+    ],
   },
   async redirects() {
     if (!wordpressUrl) {
