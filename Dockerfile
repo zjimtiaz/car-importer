@@ -36,7 +36,11 @@ USER nextjs
 
 EXPOSE 3000
 
-# Railway sets PORT dynamically - default to 3000 if not set
 ENV HOSTNAME="0.0.0.0"
+
+# Runtime: Next.js standalone reads env vars at runtime for API calls
+ENV WORDPRESS_URL=""
+ENV WORDPRESS_HOSTNAME=""
+ENV WORDPRESS_WEBHOOK_SECRET=""
 
 CMD ["node", "server.js"]
