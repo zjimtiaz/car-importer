@@ -315,7 +315,8 @@ export async function getVehicaCars(
   if (filters?.priceTo) query["price_to"] = filters.priceTo;
   if (filters?.yearFrom) query["year_from"] = filters.yearFrom;
   if (filters?.yearTo) query["year_to"] = filters.yearTo;
-  if (filters?.perPage) query["limit"] = filters.perPage;
+  // Always fetch up to 100 cars unless a specific limit is set
+  query["limit"] = filters?.perPage || 100;
   if (filters?.page) query["page"] = filters.page;
 
   const data = await vehicaFetchGraceful<VehicaApiResponse>(
