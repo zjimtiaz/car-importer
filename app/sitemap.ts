@@ -1,0 +1,66 @@
+import { MetadataRoute } from "next";
+import { getAllPostsForSitemap } from "@/lib/wordpress";
+import { getAllCarSlugs } from "@/lib/vehica";
+import { siteConfig } from "@/site.config";
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [posts, carSlugs] = await Promise.all([
+    getAllPostsForSitemap(),
+    getAllCarSlugs(),
+  ]);
+
+  const staticUrls: MetadataRoute.Sitemap = [
+    {
+      url: siteConfig.site_domain,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 1,
+    },
+    {
+      url: `${siteConfig.site_domain}/cars`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${siteConfig.site_domain}/posts`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${siteConfig.site_domain}/about`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${siteConfig.site_domain}/contact`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${siteConfig.site_domain}/faq`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+  ];
+
+  const carUrls: MetadataRoute.Sitemap = carSlugs.map((car) => ({
+    url: `${siteConfig.site_domain}/cars/${car.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
+  const postUrls: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${siteConfig.site_domain}/posts/${post.slug}`,
+    lastModified: new Date(post.modified),
+    changeFrequency: "weekly",
+    priority: 0.5,
+  }));
+
+  return [...staticUrls, ...carUrls, ...postUrls];
+}
