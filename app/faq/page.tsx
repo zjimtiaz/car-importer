@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Container, Section } from "@/components/craft";
 import { getPageBySlug } from "@/lib/wordpress";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "FAQ",
   description:

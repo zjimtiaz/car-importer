@@ -11,6 +11,9 @@ import { LoanCalculator } from "@/components/home/loan-calculator";
 import { RecentPosts } from "@/components/home/recent-posts";
 import { CtaBanner } from "@/components/home/cta-banner";
 
+// Home page is dynamic — all data fetched at runtime
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Car Importers — Premium Imported Vehicles UK",
   description:

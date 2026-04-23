@@ -1,4 +1,4 @@
-import { getPostBySlug, getAllPostSlugs } from "@/lib/wordpress";
+import { getPostBySlug } from "@/lib/wordpress";
 import { generateContentMetadata, stripHtml } from "@/lib/metadata";
 
 import { Section, Container, Article } from "@/components/craft";
@@ -17,9 +17,8 @@ import {
   ArrowLeft,
 } from "lucide-react";
 
-export async function generateStaticParams() {
-  return await getAllPostSlugs();
-}
+// All post pages are dynamic — WordPress data is fetched at runtime only
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

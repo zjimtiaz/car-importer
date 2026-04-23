@@ -3,7 +3,7 @@ import { ArchiveList } from "@/components/archive-list";
 import type { Category } from "@/lib/wordpress.d";
 import type { Metadata } from "next";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "All Categories",

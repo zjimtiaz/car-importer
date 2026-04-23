@@ -3,11 +3,20 @@ import { getAllPostsForSitemap } from "@/lib/wordpress";
 import { getAllCarSlugs } from "@/lib/vehica";
 import { siteConfig } from "@/site.config";
 
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [posts, carSlugs] = await Promise.all([
-    getAllPostsForSitemap(),
-    getAllCarSlugs(),
-  ]);
+  let posts: { slug: string; modified: string }[] = [];
+  let carSlugs: { slug: string }[] = [];
+
+  try {
+    [posts, carSlugs] = await Promise.all([
+      getAllPostsForSitemap(),
+      getAllCarSlugs(),
+    ]);
+  } catch {
+    // WordPress unavailable at build time — return static URLs only
+  }
 
   const staticUrls: MetadataRoute.Sitemap = [
     {

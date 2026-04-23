@@ -31,8 +31,7 @@ export const metadata: Metadata = {
     "News, tips, and insights about imported vehicles, car buying guides, and the UK car market.",
 };
 
-export const dynamic = "auto";
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default async function Page({
   searchParams,

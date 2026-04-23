@@ -1,20 +1,12 @@
-import { getPageBySlug, getAllPages } from "@/lib/wordpress";
+import { getPageBySlug } from "@/lib/wordpress";
 import { generateContentMetadata, stripHtml } from "@/lib/metadata";
 import { Section, Container, Prose } from "@/components/craft";
 import { notFound } from "next/navigation";
 
 import type { Metadata } from "next";
 
-// Revalidate pages every hour
-export const revalidate = 3600;
-
-export async function generateStaticParams() {
-  const pages = await getAllPages();
-
-  return pages.map((page) => ({
-    slug: page.slug,
-  }));
-}
+// All WP pages are dynamic — fetched at runtime only
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

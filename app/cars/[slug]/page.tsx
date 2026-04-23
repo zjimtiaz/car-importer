@@ -18,7 +18,6 @@ import { Separator } from "@/components/ui/separator";
 import {
   getVehicaCarBySlug,
   getRelatedCars,
-  getAllCarSlugs,
 } from "@/lib/vehica";
 import { VehicleGallery } from "@/components/cars/vehicle-gallery";
 import { VehicleSpecs } from "@/components/cars/vehicle-specs";
@@ -26,12 +25,11 @@ import { VehicleCard } from "@/components/cars/vehicle-card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { EnquiryForm } from "@/components/cars/enquiry-form";
 
+// All car pages are dynamic — WordPress data is fetched at runtime only
+export const dynamic = "force-dynamic";
+
 interface CarDetailProps {
   params: Promise<{ slug: string }>;
-}
-
-export async function generateStaticParams() {
-  return getAllCarSlugs();
 }
 
 export async function generateMetadata({
