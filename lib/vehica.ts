@@ -269,6 +269,7 @@ async function vehicaFetch<T>(
   const res = await fetch(url, {
     headers: { "User-Agent": USER_AGENT },
     next: { tags, revalidate: CACHE_TTL },
+    signal: AbortSignal.timeout(15000),
   });
 
   if (!res.ok) {

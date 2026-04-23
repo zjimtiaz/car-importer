@@ -62,6 +62,7 @@ async function wordpressFetch<T>(
   const response = await fetch(url, {
     headers: { "User-Agent": USER_AGENT },
     next: { tags, revalidate: CACHE_TTL },
+    signal: AbortSignal.timeout(15000),
   });
 
   if (!response.ok) {
@@ -107,6 +108,7 @@ async function wordpressFetchPaginated<T>(
   const response = await fetch(url, {
     headers: { "User-Agent": USER_AGENT },
     next: { tags, revalidate: CACHE_TTL },
+    signal: AbortSignal.timeout(15000),
   });
 
   if (!response.ok) {
