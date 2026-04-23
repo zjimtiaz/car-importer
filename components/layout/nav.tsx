@@ -1,11 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { MobileNav } from "@/components/nav/mobile-nav";
 import { UserMenu } from "@/components/auth/user-menu";
-import { mainMenu } from "@/menu.config";
+import { mainMenu, wpPages } from "@/menu.config";
 import { siteConfig } from "@/site.config";
 import { cn } from "@/lib/utils";
-import { Car } from "lucide-react";
+import { Car, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface NavProps {
   className?: string;
@@ -38,7 +44,7 @@ export function Nav({ className, children, id }: NavProps) {
         {children}
 
         <div className="flex items-center gap-2">
-          <div className="mx-2 hidden md:flex">
+          <div className="mx-2 hidden md:flex items-center">
             {Object.entries(mainMenu).map(([key, href]) => (
               <Button key={href} asChild variant="ghost" size="sm">
                 <Link href={href}>
@@ -46,6 +52,22 @@ export function Nav({ className, children, id }: NavProps) {
                 </Link>
               </Button>
             ))}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="gap-1">
+                  Pages <ChevronDown className="h-3 w-3" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {Object.entries(wpPages).map(([key, href]) => (
+                  <DropdownMenuItem key={href} asChild>
+                    <Link href={href}>
+                      {key.charAt(0).toUpperCase() + key.slice(1)}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
           <div className="hidden sm:flex">
             <UserMenu />

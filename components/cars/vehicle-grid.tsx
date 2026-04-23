@@ -4,6 +4,7 @@ import { useState } from "react";
 import { LayoutGrid, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { VehicleCard } from "./vehicle-card";
+import { VehicleListCard } from "./vehicle-list-card";
 import type { ParsedCar } from "@/lib/vehica";
 
 interface VehicleGridProps {
@@ -59,7 +60,7 @@ export function VehicleGrid({ cars, totalCount }: VehicleGridProps) {
       ) : (
         <div className="space-y-4">
           {cars.map((car) => (
-            <VehicleCard key={car.id} car={car} />
+            <VehicleListCard key={car.id} car={car} />
           ))}
         </div>
       )}
