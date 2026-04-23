@@ -38,9 +38,4 @@ EXPOSE 3000
 
 ENV HOSTNAME="0.0.0.0"
 
-# Runtime: Next.js standalone reads env vars at runtime for API calls
-ENV WORDPRESS_URL=""
-ENV WORDPRESS_HOSTNAME=""
-ENV WORDPRESS_WEBHOOK_SECRET=""
-
 CMD ["node", "server.js"]
