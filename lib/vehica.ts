@@ -243,8 +243,34 @@ export function parseCar(car: VehicaCar): ParsedCar {
 
     location,
 
+    videoUrl: getVideoUrl(attrs),
+    videoEmbed: getVideoEmbed(attrs),
+
     attributes: attrs,
   };
+}
+
+/** Extract video URL from embed attribute */
+function getVideoUrl(attributes: VehicaAttribute[]): string {
+  const attr = getAttr(attributes, ATTR.VIDEO);
+  if (!attr) return "";
+  const val = attr.value;
+  if (typeof val === "object" && val !== null && !Array.isArray(val) && "url" in val) {
+    return (val as { url: string }).url || "";
+  }
+  return "";
+}
+
+/** Extract video embed HTML from embed attribute */
+function getVideoEmbed(attributes: VehicaAttribute[]): string {
+  const attr = getAttr(attributes, ATTR.VIDEO);
+  if (!attr) return "";
+  const val = attr.value;
+  if (typeof val === "object" && val !== null && !Array.isArray(val) && "embed" in val) {
+    return (val as { embed: string }).embed || "";
+  }
+  if (typeof attr.displayValue === "string") return attr.displayValue;
+  return "";
 }
 
 // ─── API Fetchers ───────────────────────────────────────────

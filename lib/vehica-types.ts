@@ -134,6 +134,10 @@ export interface ParsedCar {
   // Location
   location: VehicaLocation | null;
 
+  // Video
+  videoUrl: string;
+  videoEmbed: string;
+
   // Raw for anything else
   attributes: VehicaAttribute[];
 }

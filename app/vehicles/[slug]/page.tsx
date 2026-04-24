@@ -135,6 +135,17 @@ export default async function CarDetailPage({ params }: CarDetailProps) {
             <div className="space-y-8 overflow-hidden">
               <VehicleGallery images={car.gallery} alt={car.name} />
 
+              {/* Video */}
+              {car.videoEmbed && (
+                <div className="overflow-hidden rounded-lg">
+                  <h3 className="mb-3 text-lg font-semibold">Video</h3>
+                  <div
+                    className="aspect-video [&>iframe]:h-full [&>iframe]:w-full [&>iframe]:rounded-lg"
+                    dangerouslySetInnerHTML={{ __html: car.videoEmbed }}
+                  />
+                </div>
+              )}
+
               {/* Tabbed sections */}
               <Tabs defaultValue="overview">
                 <TabsList className="w-full justify-start gap-0 overflow-x-auto no-scrollbar">
