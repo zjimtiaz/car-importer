@@ -27,7 +27,7 @@ export function QuickSearch({ makes, bodyTypes }: QuickSearchProps) {
     const params = new URLSearchParams();
     if (make) params.set("make", make);
     if (bodyType) params.set("bodyType", bodyType);
-    router.push(`/cars?${params.toString()}`);
+    router.push(`/vehicles?${params.toString()}`);
   };
 
   return (

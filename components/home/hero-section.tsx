@@ -89,7 +89,7 @@ export function HeroSection({ cars }: HeroSectionProps) {
 
           <div className="mt-8 flex flex-wrap gap-4">
             <Button size="lg" asChild>
-              <Link href="/cars">
+              <Link href="/vehicles">
                 Browse All Cars
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

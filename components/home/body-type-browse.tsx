@@ -38,7 +38,7 @@ export function BodyTypeBrowse({ bodyTypes }: BodyTypeBrowseProps) {
             return (
               <Link
                 key={bt.id}
-                href={`/cars?bodyType=${bt.slug}`}
+                href={`/vehicles?bodyType=${bt.slug}`}
                 className="flex flex-col items-center gap-3 rounded-lg border bg-card p-6 text-center transition-colors hover:border-primary hover:bg-primary/5"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">

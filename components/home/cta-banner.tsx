@@ -19,7 +19,7 @@ export function CtaBanner() {
             variant="secondary"
             asChild
           >
-            <Link href="/cars">Browse Inventory</Link>
+            <Link href="/vehicles">Browse Inventory</Link>
           </Button>
           <Button
             size="lg"

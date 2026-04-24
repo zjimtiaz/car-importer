@@ -6,11 +6,11 @@ import Link from "next/link";
 import { NewsletterForm } from "./newsletter-form";
 
 const popularMakes = [
-  { name: "BMW", href: "/cars?make=bmw" },
-  { name: "Mercedes-Benz", href: "/cars?make=mercedes-benz" },
-  { name: "Audi", href: "/cars?make=audi" },
-  { name: "Toyota", href: "/cars?make=toyota" },
-  { name: "Volkswagen", href: "/cars?make=volkswagen" },
+  { name: "BMW", href: "/vehicles?make=bmw" },
+  { name: "Mercedes-Benz", href: "/vehicles?make=mercedes-benz" },
+  { name: "Audi", href: "/vehicles?make=audi" },
+  { name: "Toyota", href: "/vehicles?make=toyota" },
+  { name: "Volkswagen", href: "/vehicles?make=volkswagen" },
 ];
 
 export function Footer() {

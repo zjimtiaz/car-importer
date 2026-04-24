@@ -26,7 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
-      url: `${siteConfig.site_domain}/cars`,
+      url: `${siteConfig.site_domain}/vehicles`,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 0.9,
@@ -58,7 +58,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   const carUrls: MetadataRoute.Sitemap = carSlugs.map((car) => ({
-    url: `${siteConfig.site_domain}/cars/${car.slug}`,
+    url: `${siteConfig.site_domain}/vehicles/${car.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly",
     priority: 0.8,

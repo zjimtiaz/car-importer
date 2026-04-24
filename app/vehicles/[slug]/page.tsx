@@ -101,14 +101,14 @@ export default async function CarDetailPage({ params }: CarDetailProps) {
               Home
             </Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href="/cars" className="hover:text-foreground">
-              Cars
+            <Link href="/vehicles" className="hover:text-foreground">
+              Vehicles
             </Link>
             {car.make && (
               <>
                 <ChevronRight className="h-3 w-3" />
                 <Link
-                  href={`/cars?make=${car.makeSlug}`}
+                  href={`/vehicles?make=${car.makeSlug}`}
                   className="hover:text-foreground"
                 >
                   {car.make}
@@ -119,7 +119,7 @@ export default async function CarDetailPage({ params }: CarDetailProps) {
               <>
                 <ChevronRight className="h-3 w-3" />
                 <Link
-                  href={`/cars?make=${car.makeSlug}&model=${car.modelSlug}`}
+                  href={`/vehicles?make=${car.makeSlug}&model=${car.modelSlug}`}
                   className="hover:text-foreground"
                 >
                   {car.model}

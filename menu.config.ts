@@ -1,6 +1,6 @@
 export const mainMenu = {
   home: "/",
-  cars: "/cars",
+  cars: "/vehicles",
   about: "/about",
   "import news": "/import-news",
   contact: "/contact",
@@ -8,7 +8,7 @@ export const mainMenu = {
 };
 
 export const contentMenu = {
-  "all cars": "/cars",
+  "all cars": "/vehicles",
   "about us": "/about",
   "import news": "/import-news",
   faq: "/faq",

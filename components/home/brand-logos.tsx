@@ -18,7 +18,7 @@ export function BrandLogos({ makes }: BrandLogosProps) {
           {makes.map((make) => (
             <Link
               key={make.id}
-              href={`/cars?make=${make.slug}`}
+              href={`/vehicles?make=${make.slug}`}
               className="flex flex-col items-center gap-1 rounded-lg px-4 py-3 transition-colors hover:bg-muted"
             >
               <span className="text-2xl font-bold text-foreground/80">

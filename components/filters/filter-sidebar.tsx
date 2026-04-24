@@ -50,7 +50,7 @@ function FilterControls({
       if (key === "make") {
         params.delete("model");
       }
-      router.push(`/cars?${params.toString()}`);
+      router.push(`/vehicles?${params.toString()}`);
     },
     [router, searchParams]
   );
@@ -58,13 +58,33 @@ function FilterControls({
   const selectedMakeSlug = searchParams.get("make");
 
   const clearFilters = useCallback(() => {
-    router.push("/cars");
+    router.push("/vehicles");
   }, [router]);
 
   const hasFilters = searchParams.toString().length > 0;
 
   return (
     <div className="space-y-5">
+      {/* Sort */}
+      <div>
+        <Label className="mb-1.5 text-sm font-medium">Sort By</Label>
+        <Select
+          value={searchParams.get("sort") || "newest"}
+          onValueChange={(v) => updateFilter("sort", v)}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Newest First" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="newest">Newest First</SelectItem>
+            <SelectItem value="oldest">Oldest First</SelectItem>
+            <SelectItem value="price_low">Price: Low to High</SelectItem>
+            <SelectItem value="price_high">Price: High to Low</SelectItem>
+            <SelectItem value="mileage_low">Mileage: Low to High</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
       {/* Make */}
       <div>
         <Label className="mb-1.5 text-sm font-medium">Make</Label>
@@ -251,26 +271,6 @@ function FilterControls({
             onBlur={(e) => updateFilter("yearTo", e.target.value)}
           />
         </div>
-      </div>
-
-      {/* Sort */}
-      <div>
-        <Label className="mb-1.5 text-sm font-medium">Sort By</Label>
-        <Select
-          value={searchParams.get("sort") || "newest"}
-          onValueChange={(v) => updateFilter("sort", v)}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Newest First" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="newest">Newest First</SelectItem>
-            <SelectItem value="oldest">Oldest First</SelectItem>
-            <SelectItem value="price_low">Price: Low to High</SelectItem>
-            <SelectItem value="price_high">Price: High to Low</SelectItem>
-            <SelectItem value="mileage_low">Mileage: Low to High</SelectItem>
-          </SelectContent>
-        </Select>
       </div>
 
       {/* Clear */}

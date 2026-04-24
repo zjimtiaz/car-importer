@@ -22,7 +22,7 @@ export function FeaturedVehicles({ cars }: FeaturedVehiclesProps) {
             </p>
           </div>
           <Button variant="ghost" asChild className="hidden sm:flex">
-            <Link href="/cars">
+            <Link href="/vehicles">
               View All <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
@@ -36,7 +36,7 @@ export function FeaturedVehicles({ cars }: FeaturedVehiclesProps) {
 
         <div className="mt-8 text-center sm:hidden">
           <Button asChild>
-            <Link href="/cars">View All Cars</Link>
+            <Link href="/vehicles">View All Cars</Link>
           </Button>
         </div>
       </div>

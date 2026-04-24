@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Fuel, Gauge, Settings2, ArrowRight } from "lucide-react";
+import { Fuel, Gauge, Settings2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { ParsedCar } from "@/lib/vehica";
 
@@ -11,7 +11,7 @@ interface VehicleCardProps {
 export function VehicleCard({ car }: VehicleCardProps) {
   return (
     <Link
-      href={`/cars/${car.slug}`}
+      href={`/vehicles/${car.slug}`}
       className="group block overflow-hidden rounded-xl border bg-card shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
     >
       {/* Image */}
@@ -33,32 +33,17 @@ export function VehicleCard({ car }: VehicleCardProps) {
               Featured
             </Badge>
           )}
-          {car.condition && (
-            <Badge className="bg-white/90 text-foreground shadow-md hover:bg-white/90 text-[11px] px-2 py-0.5">
-              {car.condition}
-            </Badge>
-          )}
         </div>
 
-        {/* Top-right: photo count */}
-        {car.gallery.length > 1 && (
-          <span className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-white backdrop-blur-sm">
-            {car.gallery.length} photos
-          </span>
-        )}
-
-        {/* Bottom: body type + year */}
-        <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
-          {car.bodyType && (
-            <Badge
-              variant="secondary"
-              className="bg-black/60 text-white backdrop-blur-sm hover:bg-black/60 text-[11px]"
-            >
-              {car.bodyType}
-            </Badge>
+        {/* Top-right: photo count + year */}
+        <div className="absolute top-3 right-3 flex items-center gap-1.5">
+          {car.gallery.length > 1 && (
+            <span className="flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-white backdrop-blur-sm">
+              {car.gallery.length}
+            </span>
           )}
           {car.year && (
-            <span className="rounded bg-black/60 px-2 py-0.5 text-xs font-semibold text-white backdrop-blur-sm">
+            <span className="rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
               {car.year}
             </span>
           )}
@@ -67,11 +52,19 @@ export function VehicleCard({ car }: VehicleCardProps) {
 
       {/* Content */}
       <div className="p-4">
-        <h3 className="line-clamp-2 text-sm font-bold leading-snug group-hover:text-primary transition-colors">
+        {/* Body type label */}
+        {car.bodyType && (
+          <span className="text-xs font-semibold uppercase tracking-wider text-primary">
+            {car.bodyType}
+          </span>
+        )}
+
+        {/* Title */}
+        <h3 className="mt-1 line-clamp-2 text-sm font-bold leading-snug group-hover:text-primary transition-colors">
           {car.name}
         </h3>
 
-        {/* Specs row — only show specs that have actual values */}
+        {/* Specs row */}
         <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
           {car.mileage && car.mileage.trim() !== "" && (
             <span className="flex items-center gap-1">
@@ -98,14 +91,13 @@ export function VehicleCard({ car }: VehicleCardProps) {
         {/* Divider */}
         <div className="my-3 border-t" />
 
-        {/* Price + CTA */}
+        {/* Price + View */}
         <div className="flex items-center justify-between">
           <span className="text-lg font-bold text-primary">
             {car.priceDisplay}
           </span>
-          <span className="flex items-center gap-1 text-xs font-medium text-muted-foreground group-hover:text-primary transition-colors">
-            View
-            <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+          <span className="rounded-full border px-3 py-1 text-xs font-medium text-muted-foreground group-hover:border-primary group-hover:text-primary transition-colors">
+            View Car
           </span>
         </div>
       </div>

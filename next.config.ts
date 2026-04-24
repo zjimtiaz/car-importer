@@ -35,6 +35,16 @@ const nextConfig: NextConfig = {
         destination: "/import-news/:path*",
         permanent: true,
       },
+      {
+        source: "/cars",
+        destination: "/vehicles",
+        permanent: true,
+      },
+      {
+        source: "/cars/:path*",
+        destination: "/vehicles/:path*",
+        permanent: true,
+      },
     ];
   },
 };
