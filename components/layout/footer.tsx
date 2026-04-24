@@ -1,4 +1,3 @@
-import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { mainMenu, contentMenu } from "@/menu.config";
 import { siteConfig } from "@/site.config";
 import { Car, Phone, Mail } from "lucide-react";
@@ -113,12 +112,11 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t pt-6 sm:flex-row">
+        <div className="mt-10 border-t pt-6 text-center">
           <p className="text-sm text-muted-foreground">
             &copy; {new Date().getFullYear()} {siteConfig.site_name}. All rights
             reserved.
           </p>
-          <ThemeToggle />
         </div>
       </div>
     </footer>

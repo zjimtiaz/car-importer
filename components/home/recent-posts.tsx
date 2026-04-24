@@ -28,9 +28,11 @@ export function RecentPosts({ posts }: RecentPostsProps) {
           </Button>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
+        <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 lg:grid-cols-3">
           {posts.slice(0, 3).map((post) => (
-            <PostCard key={post.id} post={post} />
+            <div key={post.id} className="min-w-[260px] shrink-0 snap-start sm:min-w-0">
+              <PostCard post={post} />
+            </div>
           ))}
         </div>
       </div>

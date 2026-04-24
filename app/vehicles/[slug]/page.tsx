@@ -130,14 +130,14 @@ export default async function CarDetailPage({ params }: CarDetailProps) {
             <span className="text-foreground">{car.name}</span>
           </nav>
 
-          <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
+          <div className="grid gap-8 lg:grid-cols-[1fr_380px] overflow-hidden">
             {/* Left: Gallery + Tabbed Content */}
-            <div className="space-y-8">
+            <div className="space-y-8 overflow-hidden">
               <VehicleGallery images={car.gallery} alt={car.name} />
 
               {/* Tabbed sections */}
               <Tabs defaultValue="overview">
-                <TabsList className="w-full justify-start gap-0 overflow-x-auto">
+                <TabsList className="w-full justify-start gap-0 overflow-x-auto no-scrollbar">
                   <TabsTrigger value="overview">Overview</TabsTrigger>
                   <TabsTrigger value="specs">Specifications</TabsTrigger>
                   {car.location && (

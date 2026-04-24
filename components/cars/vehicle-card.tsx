@@ -91,15 +91,15 @@ export function VehicleCard({ car }: VehicleCardProps) {
         {/* Divider */}
         <div className="my-3 border-t" />
 
-        {/* Price + View */}
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <span className="text-lg font-bold text-primary">
-            {car.priceDisplay}
-          </span>
-          <span className="rounded-full border px-3 py-1 text-center text-xs font-medium text-muted-foreground group-hover:border-primary group-hover:text-primary transition-colors">
-            View Car
-          </span>
-        </div>
+        {/* Price */}
+        <p className="text-lg font-bold text-primary">
+          {car.priceDisplay}
+        </p>
+
+        {/* View button */}
+        <span className="mt-2 block rounded-full border px-3 py-1.5 text-center text-xs font-medium text-muted-foreground group-hover:border-primary group-hover:text-primary transition-colors">
+          View Car
+        </span>
       </div>
     </Link>
   );
