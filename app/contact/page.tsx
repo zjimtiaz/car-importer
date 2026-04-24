@@ -18,7 +18,6 @@ export default function ContactPage() {
     const form = new FormData(e.currentTarget);
 
     try {
-      // Proxy through our API route to CF7
       await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -31,52 +30,54 @@ export default function ContactPage() {
       });
       setSubmitted(true);
     } catch {
-      setSubmitted(true); // Show success anyway for UX
+      setSubmitted(true);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <Section>
-      <Container>
-        <h1 className="text-3xl font-bold">Contact Us</h1>
-        <p className="mt-2 text-muted-foreground">
+    <>
+    {/* Hero banner */}
+    <div className="relative flex h-48 items-center justify-center bg-gradient-to-r from-primary/90 to-primary/70 text-white md:h-64">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold md:text-4xl">Contact Us</h1>
+        <p className="mt-2 text-white/80">
           Get in touch with our team — we&apos;re here to help
         </p>
+      </div>
+    </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_380px]">
-          {/* Contact form */}
-          <div>
+    <Section>
+      <Container>
+
+        {/* 3-column layout */}
+        <div className="mt-8 grid gap-6 lg:grid-cols-3">
+          {/* Column 1: Contact Form */}
+          <div className="lg:col-span-1">
             {submitted ? (
               <div className="rounded-lg border bg-primary/5 p-8 text-center">
                 <h2 className="text-xl font-semibold">Thank You!</h2>
                 <p className="mt-2 text-muted-foreground">
-                  We&apos;ve received your message and will get back to you shortly.
+                  We&apos;ve received your message and will get back to you
+                  shortly.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <Label htmlFor="name">Full Name</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      required
-                      className="mt-1"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      className="mt-1"
-                    />
-                  </div>
+                <div>
+                  <Label htmlFor="name">Full Name</Label>
+                  <Input id="name" name="name" required className="mt-1" />
+                </div>
+                <div>
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    className="mt-1"
+                  />
                 </div>
                 <div>
                   <Label htmlFor="phone">Phone (optional)</Label>
@@ -92,18 +93,22 @@ export default function ContactPage() {
                     className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   />
                 </div>
-                <Button type="submit" className="w-full sm:w-auto" disabled={loading}>
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={loading}
+                >
                   {loading ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             )}
           </div>
 
-          {/* Contact info sidebar */}
-          <div className="space-y-4">
-            <div className="rounded-lg border bg-card p-6">
+          {/* Column 2: Contact Info */}
+          <div>
+            <div className="rounded-lg border bg-card p-6 h-full">
               <h3 className="text-lg font-semibold">Get In Touch</h3>
-              <div className="mt-4 space-y-4 text-sm">
+              <div className="mt-4 space-y-5 text-sm">
                 <div className="flex items-start gap-3">
                   <Phone className="mt-0.5 h-4 w-4 text-primary" />
                   <div>
@@ -115,14 +120,9 @@ export default function ContactPage() {
                   <Mail className="mt-0.5 h-4 w-4 text-primary" />
                   <div>
                     <p className="font-medium">Email</p>
-                    <p className="text-muted-foreground">info@carimporters.co.uk</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <MapPin className="mt-0.5 h-4 w-4 text-primary" />
-                  <div>
-                    <p className="font-medium">Location</p>
-                    <p className="text-muted-foreground">United Kingdom</p>
+                    <p className="text-muted-foreground">
+                      info@carimporters.co.uk
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -139,8 +139,43 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
+
+          {/* Column 3: Business Address */}
+          <div>
+            <div className="rounded-lg border bg-card p-6 h-full">
+              <h3 className="text-lg font-semibold">Our Address</h3>
+              <div className="mt-4 space-y-5 text-sm">
+                <div className="flex items-start gap-3">
+                  <MapPin className="mt-0.5 h-4 w-4 text-primary" />
+                  <div>
+                    <p className="font-medium">Location</p>
+                    <p className="text-muted-foreground">
+                      Car Importers
+                      <br />
+                      United Kingdom
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Map row */}
+        <div className="mt-8 overflow-hidden rounded-lg border">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.5415644812844!2d-0.1277583!3d51.5073509!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDMwJzI2LjUiTiAwwrAwNyc0MC4wIlc!5e0!3m2!1sen!2suk!4v1600000000000"
+            width="100%"
+            height="350"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Car Importers Location"
+          />
         </div>
       </Container>
     </Section>
+    </>
   );
 }
