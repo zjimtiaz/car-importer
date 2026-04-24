@@ -327,6 +327,24 @@ export async function getVehicaCars(
 
   let cars = data.results.map(parseCar);
 
+  // Client-side filtering for price and year (VEHICA API may not support these)
+  if (filters?.priceFrom) {
+    const min = Number(filters.priceFrom);
+    if (!isNaN(min)) cars = cars.filter((c) => c.price >= min);
+  }
+  if (filters?.priceTo) {
+    const max = Number(filters.priceTo);
+    if (!isNaN(max)) cars = cars.filter((c) => c.price <= max);
+  }
+  if (filters?.yearFrom) {
+    const minYear = Number(filters.yearFrom);
+    if (!isNaN(minYear)) cars = cars.filter((c) => Number(c.year) >= minYear);
+  }
+  if (filters?.yearTo) {
+    const maxYear = Number(filters.yearTo);
+    if (!isNaN(maxYear)) cars = cars.filter((c) => Number(c.year) <= maxYear);
+  }
+
   // Client-side sort (VEHICA API may not support sorting)
   if (filters?.sort) {
     switch (filters.sort) {
