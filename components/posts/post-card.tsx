@@ -1,48 +1,49 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, User } from "lucide-react";
 
 import { Post } from "@/lib/wordpress.d";
 import { cn } from "@/lib/utils";
 import { truncateHtml } from "@/lib/metadata";
 import { Badge } from "@/components/ui/badge";
+import { getPostCategories } from "@/lib/wordpress";
 
 export function PostCard({ post }: { post: Post }) {
   const media = post._embedded?.["wp:featuredmedia"]?.[0] ?? null;
-  const category = post._embedded?.["wp:term"]?.[0]?.[0] ?? null;
-  const author = post._embedded?.author?.[0] ?? null;
-  const date = new Date(post.date).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
+  const categories = getPostCategories(post);
 
   return (
     <Link
-      href={`/posts/${post.slug}`}
+      href={`/import-news/${post.slug}`}
       className={cn(
         "group overflow-hidden rounded-lg border bg-card shadow-sm transition-all hover:shadow-md hover:-translate-y-1"
       )}
     >
       {/* Image */}
-      <div className="relative h-52 w-full overflow-hidden bg-muted">
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
         {media?.source_url ? (
           <Image
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             src={media.source_url}
             alt={post.title?.rendered || "Post thumbnail"}
             width={600}
-            height={300}
+            height={375}
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-sm text-muted-foreground">
             No image
           </div>
         )}
-        {category && (
-          <Badge className="absolute left-3 top-3 bg-primary text-primary-foreground">
-            {category.name}
-          </Badge>
+        {categories.length > 0 && (
+          <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
+            {categories.map((cat) => (
+              <Badge
+                key={cat.id}
+                className="bg-primary text-primary-foreground text-xs"
+              >
+                {cat.name}
+              </Badge>
+            ))}
+          </div>
         )}
       </div>
 
@@ -55,24 +56,15 @@ export function PostCard({ post }: { post: Post }) {
           className="text-lg font-semibold leading-snug group-hover:text-primary transition-colors line-clamp-2"
         />
 
-        <div className="mt-2 text-sm text-muted-foreground line-clamp-2">
+        <div className="mt-2 text-sm text-muted-foreground line-clamp-3">
           {post.excerpt?.rendered
-            ? truncateHtml(post.excerpt.rendered, 20)
+            ? truncateHtml(post.excerpt.rendered, 30)
             : "No excerpt available"}
         </div>
 
-        <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
-          <span className="flex items-center gap-1">
-            <Calendar className="h-3 w-3" />
-            {date}
-          </span>
-          {author?.name && (
-            <span className="flex items-center gap-1">
-              <User className="h-3 w-3" />
-              {author.name}
-            </span>
-          )}
-        </div>
+        <span className="mt-3 inline-block text-sm font-medium text-primary">
+          Read more &rarr;
+        </span>
       </div>
     </Link>
   );

@@ -2,7 +2,7 @@ export const mainMenu = {
   home: "/",
   cars: "/cars",
   about: "/about",
-  blog: "/posts",
+  "import news": "/import-news",
   contact: "/contact",
   faq: "/faq",
 };
@@ -10,7 +10,7 @@ export const mainMenu = {
 export const contentMenu = {
   "all cars": "/cars",
   "about us": "/about",
-  blog: "/posts",
+  "import news": "/import-news",
   faq: "/faq",
   "loan calculator": "/pages/loan-calculator",
   "our team": "/pages/our-team",

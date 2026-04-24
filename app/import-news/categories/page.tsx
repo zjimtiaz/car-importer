@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "All Categories",
   description: "Browse all categories of our blog posts",
   alternates: {
-    canonical: "/posts/categories",
+    canonical: "/import-news/categories",
   },
 };
 
@@ -20,7 +20,7 @@ export default async function Page() {
     <ArchiveList<Category>
       title="All Categories"
       items={categories}
-      getItemHref={(c) => `/posts/?category=${c.id}`}
+      getItemHref={(c) => `/import-news/?category=${c.id}`}
       getItemLabel={(c) => c.name}
       emptyMessage="No categories available yet."
     />

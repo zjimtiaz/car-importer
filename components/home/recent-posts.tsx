@@ -16,14 +16,14 @@ export function RecentPosts({ posts }: RecentPostsProps) {
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-8 flex items-end justify-between">
           <div>
-            <h2 className="text-2xl font-bold md:text-3xl">Latest from the Blog</h2>
+            <h2 className="text-2xl font-bold md:text-3xl">Latest Import News</h2>
             <p className="mt-1 text-muted-foreground">
               Tips, guides, and news about imported cars
             </p>
           </div>
           <Button variant="ghost" asChild className="hidden sm:flex">
-            <Link href="/posts">
-              All Posts <ArrowRight className="ml-2 h-4 w-4" />
+            <Link href="/import-news">
+              All News <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
         </div>

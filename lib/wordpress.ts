@@ -10,6 +10,7 @@ import type {
   Page,
   Author,
   FeaturedMedia,
+  EmbeddedTerm,
 } from "./wordpress.d";
 
 // Single source of truth for WordPress configuration
@@ -45,7 +46,7 @@ export interface WordPressResponse<T> {
 }
 
 const USER_AGENT = "Next.js WordPress Client";
-const CACHE_TTL = 3600; // 1 hour
+const CACHE_TTL = 60; // 60 seconds
 
 // Core fetch - throws on error (for functions that require data)
 async function wordpressFetch<T>(
@@ -477,6 +478,21 @@ export async function getPostsByAuthorPaginated(
     page,
     author: authorId,
   });
+}
+
+// Helper: get all categories for a post, filtering out "Uncategorised" when meaningful ones exist
+export function getPostCategories(post: Post): EmbeddedTerm[] {
+  const categories = post._embedded?.["wp:term"]?.[0] ?? [];
+  if (categories.length === 0) return [];
+  const meaningful = categories.filter(
+    (c) => c.slug !== "uncategorised" && c.slug !== "uncategorized"
+  );
+  return meaningful.length > 0 ? meaningful : categories;
+}
+
+// Helper: get all tags for a post
+export function getPostTags(post: Post): EmbeddedTerm[] {
+  return post._embedded?.["wp:term"]?.[1] ?? [];
 }
 
 export { WordPressAPIError };

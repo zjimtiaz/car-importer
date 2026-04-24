@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "All Authors",
   description: "Browse all authors of our blog posts",
   alternates: {
-    canonical: "/posts/authors",
+    canonical: "/import-news/authors",
   },
 };
 
@@ -20,7 +20,7 @@ export default async function Page() {
     <ArchiveList<Author>
       title="All Authors"
       items={authors}
-      getItemHref={(a) => `/posts/?author=${a.id}`}
+      getItemHref={(a) => `/import-news/?author=${a.id}`}
       getItemLabel={(a) => a.name}
       emptyMessage="No authors available yet."
     />

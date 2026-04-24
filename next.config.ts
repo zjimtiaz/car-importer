@@ -25,6 +25,16 @@ const nextConfig: NextConfig = {
         destination: `${wordpressUrl}/wp-admin`,
         permanent: true,
       },
+      {
+        source: "/posts",
+        destination: "/import-news",
+        permanent: true,
+      },
+      {
+        source: "/posts/:path*",
+        destination: "/import-news/:path*",
+        permanent: true,
+      },
     ];
   },
 };

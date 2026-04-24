@@ -36,11 +36,11 @@ export function FilterPosts({
     newParams.delete("search");
     value === "all" ? newParams.delete(type) : newParams.set(type, value);
 
-    router.push(`/posts?${newParams.toString()}`);
+    router.push(`/import-news?${newParams.toString()}`);
   };
 
   const handleResetFilters = () => {
-    router.push("/posts");
+    router.push("/import-news");
   };
 
   const hasTags = tags.length > 0;

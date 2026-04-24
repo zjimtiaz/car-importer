@@ -132,7 +132,7 @@ interface EmbeddedAuthor {
   avatar_urls: Record<string, string>;
 }
 
-interface EmbeddedTerm {
+export interface EmbeddedTerm {
   id: number;
   name: string;
   slug: string;

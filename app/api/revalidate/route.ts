@@ -22,7 +22,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { contentType, contentId } = requestBody;
+    // Support both payload formats:
+    // Format A: { contentType, contentId }
+    // Format B (WP plugins): { type, data: { id } }
+    const contentType = requestBody.contentType ?? requestBody.type;
+    const contentId = requestBody.contentId ?? requestBody.data?.id;
 
     if (!contentType) {
       return NextResponse.json(

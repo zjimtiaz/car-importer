@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "All Tags",
   description: "Browse all tags of our blog posts",
   alternates: {
-    canonical: "/posts/tags",
+    canonical: "/import-news/tags",
   },
 };
 
@@ -20,7 +20,7 @@ export default async function Page() {
     <ArchiveList<Tag>
       title="All Tags"
       items={tags}
-      getItemHref={(t) => `/posts/?tag=${t.id}`}
+      getItemHref={(t) => `/import-news/?tag=${t.id}`}
       getItemLabel={(t) => t.name}
       emptyMessage="No tags available yet."
     />
