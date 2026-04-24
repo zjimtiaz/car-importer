@@ -80,11 +80,11 @@ export default function FaqPage() {
             Find answers to common questions about our services
           </p>
 
-          <div className="mt-8 space-y-4">
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
             {faqs.map((faq, i) => (
               <details
                 key={i}
-                className="group rounded-lg border bg-card"
+                className="group rounded-lg border bg-card h-fit"
                 open={i === 0}
               >
                 <summary className="cursor-pointer px-6 py-4 text-lg font-medium hover:text-primary">
