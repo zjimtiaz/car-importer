@@ -15,7 +15,7 @@ export function PostCard({ post }: { post: Post }) {
     <Link
       href={`/import-news/${post.slug}`}
       className={cn(
-        "group overflow-hidden rounded-lg border bg-card shadow-sm transition-all hover:shadow-md hover:-translate-y-1"
+        "group overflow-hidden rounded-lg bg-card shadow-sm ring-1 ring-border transition-all hover:shadow-md hover:-translate-y-1"
       )}
     >
       {/* Image */}
