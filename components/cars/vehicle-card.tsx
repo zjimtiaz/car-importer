@@ -92,11 +92,11 @@ export function VehicleCard({ car }: VehicleCardProps) {
         <div className="my-3 border-t" />
 
         {/* Price + View */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <span className="text-lg font-bold text-primary">
             {car.priceDisplay}
           </span>
-          <span className="rounded-full border px-3 py-1 text-xs font-medium text-muted-foreground group-hover:border-primary group-hover:text-primary transition-colors">
+          <span className="rounded-full border px-3 py-1 text-center text-xs font-medium text-muted-foreground group-hover:border-primary group-hover:text-primary transition-colors">
             View Car
           </span>
         </div>
