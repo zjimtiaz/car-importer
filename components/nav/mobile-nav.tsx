@@ -57,14 +57,14 @@ export function MobileNav() {
             <Separator />
             {Object.entries(mainMenu).map(([key, href]) => (
               <MobileLink key={key} href={href} onOpenChange={setOpen}>
-                {key.charAt(0).toUpperCase() + key.slice(1)}
+                {key.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}
               </MobileLink>
             ))}
             <h3 className="text-small pt-6">More Pages</h3>
             <Separator />
             {Object.entries(contentMenu).map(([key, href]) => (
               <MobileLink key={key} href={href} onOpenChange={setOpen}>
-                {key.charAt(0).toUpperCase() + key.slice(1)}
+                {key.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}
               </MobileLink>
             ))}
           </div>

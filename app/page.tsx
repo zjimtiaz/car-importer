@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getFeaturedCars, getMakes, getBodyTypes } from "@/lib/vehica";
 import { getRecentPosts } from "@/lib/wordpress";
+import { siteConfig } from "@/site.config";
 import { HeroSection } from "@/components/home/hero-section";
 import { QuickSearch } from "@/components/home/quick-search";
 import { FeaturedVehicles } from "@/components/home/featured-vehicles";
@@ -24,10 +25,9 @@ export const metadata: Metadata = {
 const orgJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Car Importers",
-  url: "https://carimporters.co.uk",
-  description:
-    "Premium imported vehicles at competitive prices — Car Importers UK",
+  name: siteConfig.site_name,
+  url: siteConfig.site_domain,
+  description: siteConfig.site_description,
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "sales",

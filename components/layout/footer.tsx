@@ -66,7 +66,7 @@ export function Footer() {
                     href={href}
                     className="text-muted-foreground hover:text-foreground"
                   >
-                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                    {key.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}
                   </Link>
                 </li>
               ))}
@@ -104,7 +104,7 @@ export function Footer() {
                     href={href}
                     className="text-muted-foreground hover:text-foreground"
                   >
-                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                    {key.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}
                   </Link>
                 </li>
               ))}

@@ -48,7 +48,7 @@ export function Nav({ className, children, id }: NavProps) {
             {Object.entries(mainMenu).map(([key, href]) => (
               <Button key={href} asChild variant="ghost" size="sm">
                 <Link href={href}>
-                  {key.charAt(0).toUpperCase() + key.slice(1)}
+                  {key.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}
                 </Link>
               </Button>
             ))}
@@ -62,7 +62,7 @@ export function Nav({ className, children, id }: NavProps) {
                 {Object.entries(wpPages).map(([key, href]) => (
                   <DropdownMenuItem key={href} asChild>
                     <Link href={href}>
-                      {key.charAt(0).toUpperCase() + key.slice(1)}
+                      {key.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}
                     </Link>
                   </DropdownMenuItem>
                 ))}

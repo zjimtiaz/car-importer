@@ -7,6 +7,7 @@ import {
   getPostsPaginated,
 } from "@/lib/wordpress";
 import { generateContentMetadata, stripHtml } from "@/lib/metadata";
+import { siteConfig } from "@/site.config";
 
 import { Section, Container, Article } from "@/components/craft";
 import { Badge } from "@/components/ui/badge";
@@ -85,8 +86,8 @@ export default async function Page({
       : undefined,
     publisher: {
       "@type": "Organization",
-      name: "Car Importers",
-      url: "https://carimporters.co.uk",
+      name: siteConfig.site_name,
+      url: siteConfig.site_domain,
     },
     image: featuredMedia?.source_url || undefined,
     description: stripHtml(post.excerpt.rendered),
