@@ -22,11 +22,11 @@ export function PostCard({ post }: { post: Post }) {
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
         {media?.source_url ? (
           <Image
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
             src={media.source_url}
             alt={post.title?.rendered || "Post thumbnail"}
-            width={600}
-            height={375}
+            fill
+            sizes="(max-width: 640px) 70vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-sm text-muted-foreground">
@@ -48,12 +48,12 @@ export function PostCard({ post }: { post: Post }) {
       </div>
 
       {/* Content */}
-      <div className="p-5">
+      <div className="p-3 sm:p-5">
         <h3
           dangerouslySetInnerHTML={{
             __html: post.title?.rendered || "Untitled Post",
           }}
-          className="text-lg font-semibold leading-snug group-hover:text-primary transition-colors line-clamp-2"
+          className="text-sm sm:text-lg font-semibold leading-snug group-hover:text-primary transition-colors line-clamp-2"
         />
 
         <div className="mt-2 text-sm text-muted-foreground line-clamp-3">
