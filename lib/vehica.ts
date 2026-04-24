@@ -378,16 +378,10 @@ export async function getAllCarSlugs(): Promise<{ slug: string }[]> {
   return data.results.map((car) => ({ slug: car.slug }));
 }
 
-/** Get featured cars */
+/** Get featured cars — only returns cars marked as featured */
 export async function getFeaturedCars(limit = 8): Promise<ParsedCar[]> {
   const cars = await getVehicaCars();
-  const featured = cars.filter((c) => c.featured);
-  // If not enough featured, fill with recent
-  if (featured.length >= limit) return featured.slice(0, limit);
-  const remaining = cars
-    .filter((c) => !c.featured)
-    .slice(0, limit - featured.length);
-  return [...featured, ...remaining];
+  return cars.filter((c) => c.featured).slice(0, limit);
 }
 
 /** Get related cars (same make or body type, excluding current) */

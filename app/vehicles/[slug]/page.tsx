@@ -140,9 +140,6 @@ export default async function CarDetailPage({ params }: CarDetailProps) {
                 <TabsList className="w-full justify-start gap-0 overflow-x-auto">
                   <TabsTrigger value="overview">Overview</TabsTrigger>
                   <TabsTrigger value="specs">Specifications</TabsTrigger>
-                  {car.description && (
-                    <TabsTrigger value="description">Description</TabsTrigger>
-                  )}
                   {car.location && (
                     <TabsTrigger value="location">Location</TabsTrigger>
                   )}
@@ -282,15 +279,6 @@ export default async function CarDetailPage({ params }: CarDetailProps) {
                   <VehicleSpecs car={car} />
                 </TabsContent>
 
-                {/* Description Tab */}
-                {car.description && (
-                  <TabsContent value="description">
-                    <div
-                      className="prose prose-sm max-w-none text-muted-foreground"
-                      dangerouslySetInnerHTML={{ __html: car.description }}
-                    />
-                  </TabsContent>
-                )}
 
                 {/* Location Tab */}
                 {car.location && (
@@ -424,6 +412,17 @@ export default async function CarDetailPage({ params }: CarDetailProps) {
               </div>
             </div>
           </div>
+
+          {/* Description — above related vehicles */}
+          {car.description && (
+            <div className="mt-12">
+              <h2 className="mb-4 text-2xl font-bold">Description</h2>
+              <div
+                className="prose prose-sm max-w-none text-muted-foreground"
+                dangerouslySetInnerHTML={{ __html: car.description }}
+              />
+            </div>
+          )}
 
           {/* Related vehicles */}
           {relatedCars.length > 0 && (

@@ -3,7 +3,6 @@ import { getFeaturedCars, getMakes, getBodyTypes } from "@/lib/vehica";
 import { getRecentPosts } from "@/lib/wordpress";
 import { siteConfig } from "@/site.config";
 import { HeroSection } from "@/components/home/hero-section";
-import { QuickSearch } from "@/components/home/quick-search";
 import { FeaturedVehicles } from "@/components/home/featured-vehicles";
 import { BodyTypeBrowse } from "@/components/home/body-type-browse";
 import { BrandLogos } from "@/components/home/brand-logos";
@@ -49,8 +48,7 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
       />
-      <HeroSection cars={featuredCars} />
-      <QuickSearch makes={makes} bodyTypes={bodyTypes} />
+      <HeroSection cars={featuredCars} makes={makes} bodyTypes={bodyTypes} />
       <FeaturedVehicles cars={featuredCars} />
       <BodyTypeBrowse bodyTypes={bodyTypes} />
       <BrandLogos makes={makes} />

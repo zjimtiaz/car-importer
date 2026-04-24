@@ -1,62 +1,55 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { ParsedCar } from "@/lib/vehica";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import type { ParsedCar, VehicaTaxonomyTerm } from "@/lib/vehica";
 
 interface HeroSectionProps {
   cars: ParsedCar[];
+  makes: VehicaTaxonomyTerm[];
+  bodyTypes: VehicaTaxonomyTerm[];
 }
 
-export function HeroSection({ cars }: HeroSectionProps) {
-  const slides = cars.slice(0, 4);
-  const [active, setActive] = useState(0);
+export function HeroSection({ cars, makes, bodyTypes }: HeroSectionProps) {
+  const router = useRouter();
+  const [make, setMake] = useState("");
+  const [bodyType, setBodyType] = useState("");
 
-  const next = useCallback(
-    () => setActive((i) => (i + 1) % slides.length),
-    [slides.length]
-  );
-  const prev = useCallback(
-    () => setActive((i) => (i === 0 ? slides.length - 1 : i - 1)),
-    [slides.length]
-  );
+  const heroImage = cars[0]?.mainImage || "/hero-placeholder.jpg";
 
-  // Auto-play
-  useEffect(() => {
-    if (slides.length <= 1) return;
-    const timer = setInterval(next, 5000);
-    return () => clearInterval(timer);
-  }, [next, slides.length]);
-
-  const car = slides[active];
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    if (make) params.set("make", make);
+    if (bodyType) params.set("bodyType", bodyType);
+    router.push(`/vehicles?${params.toString()}`);
+  };
 
   return (
     <section className="relative h-[520px] overflow-hidden bg-[hsl(222,47%,11%)] text-white md:h-[600px]">
-      {/* Background images */}
-      {slides.map((slide, i) => (
-        <div
-          key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-700 ${
-            i === active ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <Image
-            src={slide.mainImage}
-            alt={slide.name}
-            fill
-            className="object-cover"
-            priority={i === 0}
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
-        </div>
-      ))}
+      {/* Static background image */}
+      <Image
+        src={heroImage}
+        alt="Premium Imported Vehicles"
+        fill
+        className="object-cover"
+        priority
+        sizes="100vw"
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6">
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-start justify-center px-6">
         <div className="max-w-xl">
           <p className="text-sm font-medium uppercase tracking-widest text-primary">
             Premium Imported Vehicles
@@ -65,23 +58,6 @@ export function HeroSection({ cars }: HeroSectionProps) {
             Find Your Perfect{" "}
             <span className="text-primary">Imported Car</span>
           </h1>
-
-          {car && (
-            <div className="mt-4 flex items-center gap-3 text-gray-300">
-              <span className="rounded bg-white/10 px-2.5 py-1 text-sm font-medium backdrop-blur-sm">
-                {car.make} {car.model}
-              </span>
-              {car.year && (
-                <span className="text-sm">{car.year}</span>
-              )}
-              {car.priceDisplay && (
-                <span className="text-lg font-bold text-primary">
-                  {car.priceDisplay}
-                </span>
-              )}
-            </div>
-          )}
-
           <p className="mt-4 text-base text-gray-300 md:text-lg">
             Browse our curated selection and drive home your dream car today.
             Quality assured with UK-wide delivery.
@@ -97,47 +73,60 @@ export function HeroSection({ cars }: HeroSectionProps) {
             <Button
               size="lg"
               variant="outline"
-              className="border-white/30 text-white hover:bg-white/10"
+              className="border-white/30 bg-white/10 text-white hover:bg-white/20"
               asChild
             >
               <Link href="/contact">Get In Touch</Link>
             </Button>
           </div>
         </div>
-      </div>
 
-      {/* Navigation arrows */}
-      {slides.length > 1 && (
-        <>
-          <button
-            onClick={prev}
-            className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/40 p-2.5 text-white backdrop-blur-sm transition hover:bg-black/60"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            onClick={next}
-            className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/40 p-2.5 text-white backdrop-blur-sm transition hover:bg-black/60"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
+        {/* Search bar integrated into hero */}
+        <div className="mt-8 w-full max-w-3xl">
+          <div className="flex flex-col gap-3 rounded-xl bg-black/40 p-4 backdrop-blur-md sm:flex-row sm:items-end">
+            <div className="flex-1">
+              <label className="mb-1 block text-xs font-medium text-gray-300">
+                Make
+              </label>
+              <Select value={make} onValueChange={setMake}>
+                <SelectTrigger className="border-white/20 bg-white/10 text-white [&>span]:text-white">
+                  <SelectValue placeholder="Any Make" />
+                </SelectTrigger>
+                <SelectContent>
+                  {makes.map((m) => (
+                    <SelectItem key={m.id} value={m.slug}>
+                      {m.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-          {/* Dots */}
-          <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActive(i)}
-                className={`h-2 rounded-full transition-all ${
-                  i === active
-                    ? "w-8 bg-primary"
-                    : "w-2 bg-white/50 hover:bg-white/80"
-                }`}
-              />
-            ))}
+            <div className="flex-1">
+              <label className="mb-1 block text-xs font-medium text-gray-300">
+                Body Type
+              </label>
+              <Select value={bodyType} onValueChange={setBodyType}>
+                <SelectTrigger className="border-white/20 bg-white/10 text-white [&>span]:text-white">
+                  <SelectValue placeholder="Any Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  {bodyTypes.map((b) => (
+                    <SelectItem key={b.id} value={b.slug}>
+                      {b.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <Button onClick={handleSearch} size="lg" className="sm:px-8">
+              <Search className="mr-2 h-4 w-4" />
+              Find Cars
+            </Button>
           </div>
-        </>
-      )}
+        </div>
+      </div>
     </section>
   );
 }
