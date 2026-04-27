@@ -42,11 +42,11 @@ const megaMenus: Record<
       {
         title: "Popular Makes",
         links: [
-          { label: "BMW", href: "/vehicles?make=bmw" },
-          { label: "Mercedes-Benz", href: "/vehicles?make=mercedes-benz" },
-          { label: "Audi", href: "/vehicles?make=audi" },
-          { label: "Toyota", href: "/vehicles?make=toyota" },
-          { label: "Porsche", href: "/vehicles?make=porsche" },
+          { label: "BMW", href: "/vehicles/bmw" },
+          { label: "Mercedes-Benz", href: "/vehicles/mercedes-benz" },
+          { label: "Audi", href: "/vehicles/audi" },
+          { label: "Toyota", href: "/vehicles/toyota" },
+          { label: "Porsche", href: "/vehicles/porsche" },
         ],
       },
     ],

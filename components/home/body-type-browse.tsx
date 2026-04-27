@@ -1,5 +1,10 @@
+"use client";
+
 import Link from "next/link";
-import { Car, Truck, Bike, Bus } from "lucide-react";
+import { Car, Truck, Bike, Bus, ChevronLeft, ChevronRight } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
+import { useCallback } from "react";
+import { Button } from "@/components/ui/button";
 import type { VehicaTaxonomyTerm } from "@/lib/vehica";
 
 interface BodyTypeBrowseProps {
@@ -20,6 +25,18 @@ const iconMap: Record<string, typeof Car> = {
 };
 
 export function BodyTypeBrowse({ bodyTypes }: BodyTypeBrowseProps) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "start",
+    slidesToScroll: 1,
+    containScroll: "trimSnaps",
+    breakpoints: {
+      "(min-width: 1024px)": { slidesToScroll: 2 },
+    },
+  });
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+
   if (bodyTypes.length === 0) return null;
 
   return (
@@ -34,30 +51,49 @@ export function BodyTypeBrowse({ bodyTypes }: BodyTypeBrowseProps) {
               Find the perfect style for your needs
             </p>
           </div>
+          <div className="hidden items-center gap-2 sm:flex">
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-9 w-9 rounded-full"
+              onClick={scrollPrev}
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-9 w-9 rounded-full"
+              onClick={scrollNext}
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
 
-        {/* Mobile: horizontal scroll | Desktop: grid */}
-        <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-4 md:overflow-visible md:pb-0 lg:grid-cols-6">
-          {bodyTypes.map((bt) => {
-            const Icon = iconMap[bt.slug] || Car;
-            return (
-              <Link
-                key={bt.id}
-                href={`/vehicles?bodyType=${bt.slug}`}
-                className="flex min-w-[140px] shrink-0 snap-start flex-col items-center gap-3 rounded-lg border bg-card p-6 text-center transition-colors hover:border-primary hover:bg-primary/5 md:min-w-0"
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <Icon className="h-6 w-6" />
-                </div>
-                <div>
-                  <p className="font-medium">{bt.name}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {bt.count} {bt.count === 1 ? "car" : "cars"}
-                  </p>
-                </div>
-              </Link>
-            );
-          })}
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex gap-4">
+            {bodyTypes.map((bt) => {
+              const Icon = iconMap[bt.slug] || Car;
+              return (
+                <Link
+                  key={bt.id}
+                  href={`/vehicles?bodyType=${bt.slug}`}
+                  className="flex min-w-0 shrink-0 basis-[140px] flex-col items-center gap-3 rounded-lg border bg-card p-6 text-center transition-colors hover:border-primary hover:bg-primary/5 sm:basis-[160px] md:basis-[calc(25%-12px)] lg:basis-[calc(16.666%-14px)]"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="font-medium">{bt.name}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {bt.count} {bt.count === 1 ? "car" : "cars"}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

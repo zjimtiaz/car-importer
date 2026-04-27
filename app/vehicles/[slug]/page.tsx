@@ -108,7 +108,7 @@ export default async function CarDetailPage({ params }: CarDetailProps) {
               <>
                 <ChevronRight className="h-3 w-3" />
                 <Link
-                  href={`/vehicles?make=${car.makeSlug}`}
+                  href={`/vehicles/${car.makeSlug}`}
                   className="hover:text-foreground"
                 >
                   {car.make}
@@ -119,7 +119,7 @@ export default async function CarDetailPage({ params }: CarDetailProps) {
               <>
                 <ChevronRight className="h-3 w-3" />
                 <Link
-                  href={`/vehicles?make=${car.makeSlug}&model=${car.modelSlug}`}
+                  href={`/vehicles/${car.makeSlug}/${car.modelSlug}`}
                   className="hover:text-foreground"
                 >
                   {car.model}
@@ -135,21 +135,13 @@ export default async function CarDetailPage({ params }: CarDetailProps) {
             <div className="space-y-8 overflow-hidden">
               <VehicleGallery images={car.gallery} alt={car.name} />
 
-              {/* Video */}
-              {car.videoEmbed && (
-                <div className="overflow-hidden rounded-lg">
-                  <h3 className="mb-3 text-lg font-semibold">Video</h3>
-                  <div
-                    className="aspect-video [&>iframe]:h-full [&>iframe]:w-full [&>iframe]:rounded-lg"
-                    dangerouslySetInnerHTML={{ __html: car.videoEmbed }}
-                  />
-                </div>
-              )}
-
               {/* Tabbed sections */}
               <Tabs defaultValue="overview">
                 <TabsList className="w-full justify-start gap-0 overflow-x-auto no-scrollbar">
                   <TabsTrigger value="overview">Overview</TabsTrigger>
+                  {car.description && (
+                    <TabsTrigger value="description">Description</TabsTrigger>
+                  )}
                   <TabsTrigger value="specs">Specifications</TabsTrigger>
                   {car.location && (
                     <TabsTrigger value="location">Location</TabsTrigger>
@@ -284,6 +276,18 @@ export default async function CarDetailPage({ params }: CarDetailProps) {
                     </div>
                   </div>
                 </TabsContent>
+
+                {/* Description Tab */}
+                {car.description && (
+                  <TabsContent value="description">
+                    <div className="rounded-lg border bg-card p-6">
+                      <div
+                        className="prose prose-sm max-w-none text-muted-foreground"
+                        dangerouslySetInnerHTML={{ __html: car.description }}
+                      />
+                    </div>
+                  </TabsContent>
+                )}
 
                 {/* Specifications Tab */}
                 <TabsContent value="specs">
@@ -424,17 +428,6 @@ export default async function CarDetailPage({ params }: CarDetailProps) {
             </div>
           </div>
 
-          {/* Description — above related vehicles */}
-          {car.description && (
-            <div className="mt-12">
-              <h2 className="mb-4 text-2xl font-bold">Description</h2>
-              <div
-                className="prose prose-sm max-w-none text-muted-foreground"
-                dangerouslySetInnerHTML={{ __html: car.description }}
-              />
-            </div>
-          )}
-
           {/* Related vehicles */}
           {relatedCars.length > 0 && (
             <div className="mt-16">
@@ -444,6 +437,17 @@ export default async function CarDetailPage({ params }: CarDetailProps) {
                   <VehicleCard key={c.id} car={c} />
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* Video — at the bottom of the page */}
+          {car.videoEmbed && (
+            <div className="mt-16 overflow-hidden rounded-lg">
+              <h2 className="mb-4 text-2xl font-bold">Video</h2>
+              <div
+                className="aspect-video [&>iframe]:h-full [&>iframe]:w-full [&>iframe]:rounded-lg"
+                dangerouslySetInnerHTML={{ __html: car.videoEmbed }}
+              />
             </div>
           )}
         </Container>

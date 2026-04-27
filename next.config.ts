@@ -5,6 +5,20 @@ const wordpressUrl = process.env.WORDPRESS_URL;
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  async rewrites() {
+    return [
+      // /vehicles/volkswagen/golf → /vehicles?make=volkswagen&model=golf
+      {
+        source: "/vehicles/:make((?![0-9]{4})[a-z][a-z0-9-]*)/:model([a-z][a-z0-9-]*)",
+        destination: "/vehicles?make=:make&model=:model",
+      },
+      // /vehicles/volkswagen → /vehicles?make=volkswagen
+      {
+        source: "/vehicles/:make((?![0-9]{4})[a-z][a-z0-9-]*)",
+        destination: "/vehicles?make=:make",
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

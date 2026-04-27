@@ -50,7 +50,20 @@ function FilterControls({
       if (key === "make") {
         params.delete("model");
       }
-      router.push(`/vehicles?${params.toString()}`);
+
+      // Build clean URL for make/model
+      const make = params.get("make");
+      const model = params.get("model");
+      params.delete("make");
+      params.delete("model");
+
+      let basePath = "/vehicles";
+      if (make) {
+        basePath = model ? `/vehicles/${make}/${model}` : `/vehicles/${make}`;
+      }
+
+      const qs = params.toString();
+      router.push(qs ? `${basePath}?${qs}` : basePath);
     },
     [router, searchParams]
   );
