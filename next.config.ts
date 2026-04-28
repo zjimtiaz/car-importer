@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: wordpressHostname || "carimporters.co.uk",
+        hostname: wordpressHostname || "wp.carimporters.co.uk",
         port: "",
         pathname: "/**",
       },
