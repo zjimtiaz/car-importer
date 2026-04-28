@@ -4,7 +4,6 @@ const wordpressHostname = process.env.WORDPRESS_HOSTNAME;
 const wordpressUrl = process.env.WORDPRESS_URL;
 
 const nextConfig: NextConfig = {
-  output: "standalone",
   async rewrites() {
     return [
       // /vehicles/volkswagen/golf → /vehicles?make=volkswagen&model=golf
