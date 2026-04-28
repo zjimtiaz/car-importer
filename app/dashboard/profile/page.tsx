@@ -37,7 +37,7 @@ export default function ProfilePage() {
           <p className="text-sm text-muted-foreground">
             To update your profile, please use the{" "}
             <a
-              href="https://carimporters.co.uk/wp-admin/profile.php"
+              href={`${process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://carimporters.co.uk"}/wp-admin/profile.php`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary hover:underline"

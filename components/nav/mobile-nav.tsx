@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, ChevronDown, Phone, Mail, Car, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -91,6 +92,12 @@ export function MobileNav() {
   const [expandedItems, setExpandedItems] = React.useState<Set<string>>(
     new Set()
   );
+  const pathname = usePathname();
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
 
   const toggleExpanded = (label: string) => {
     setExpandedItems((prev) => {
@@ -137,7 +144,10 @@ export function MobileNav() {
                 key={item.label}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="block px-6 py-3 text-[15px] font-medium hover:bg-muted/50 transition-colors border-b border-border/40"
+                className={cn(
+                  "block px-6 py-3 text-[15px] font-medium hover:bg-muted/50 transition-colors border-b border-border/40",
+                  isActive(item.href) && "text-primary bg-primary/5"
+                )}
               >
                 {item.label}
               </Link>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { MobileNav } from "@/components/nav/mobile-nav";
 import { UserMenu } from "@/components/auth/user-menu";
@@ -90,6 +91,12 @@ const simpleLinks = [
 
 export function Nav({ className, children, id }: NavProps) {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const pathname = usePathname();
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
 
   return (
     <nav
@@ -119,7 +126,13 @@ export function Nav({ className, children, id }: NavProps) {
           <div className="mx-2 hidden md:flex items-center">
             {/* Simple links */}
             {simpleLinks.map((link) => (
-              <Button key={link.href} asChild variant="ghost" size="sm">
+              <Button
+                key={link.href}
+                asChild
+                variant="ghost"
+                size="sm"
+                className={cn(isActive(link.href) && "bg-primary/10 text-primary")}
+              >
                 <Link href={link.href}>{link.label}</Link>
               </Button>
             ))}

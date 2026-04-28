@@ -28,7 +28,7 @@ export default function MyListingsPage() {
           </p>
           <Button asChild className="mt-4">
             <a
-              href="https://carimporters.co.uk/wp-admin/post-new.php?post_type=vehica_car"
+              href={`${process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://carimporters.co.uk"}/wp-admin/post-new.php?post_type=vehica_car`}
               target="_blank"
               rel="noopener noreferrer"
             >

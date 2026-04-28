@@ -28,6 +28,30 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_GB",
+    url: siteConfig.site_domain,
+    siteName: siteConfig.site_name,
+    title: "Car Importers — Premium Imported Vehicles UK",
+    description:
+      "Browse our curated selection of premium imported vehicles at competitive prices. Quality assured, UK-wide delivery.",
+    images: [{ url: "/api/og?title=Car+Importers&description=Premium+Imported+Vehicles+UK", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Car Importers — Premium Imported Vehicles UK",
+    description:
+      "Browse our curated selection of premium imported vehicles at competitive prices. Quality assured, UK-wide delivery.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
