@@ -36,7 +36,7 @@ export function HeroSection({ cars, makes, bodyTypes }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative h-[520px] overflow-hidden bg-[hsl(222,47%,11%)] text-white md:h-[600px]">
+    <section className="relative min-h-[480px] overflow-hidden bg-[hsl(222,47%,11%)] text-white py-12 md:h-[600px] md:py-0">
       {/* Static background image */}
       <Image
         src={heroImage}
