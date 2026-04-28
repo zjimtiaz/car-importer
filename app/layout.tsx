@@ -47,7 +47,7 @@ export default function RootLayout({
         >
           <AuthProvider>
             <Nav />
-            <main className="min-h-[60vh]">{children}</main>
+            <main className="min-h-[60vh] overflow-x-hidden">{children}</main>
             <Footer />
           </AuthProvider>
         </ThemeProvider>

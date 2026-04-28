@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, ChevronDown, Phone, Mail, Car } from "lucide-react";
+import { Menu, ChevronDown, Phone, Mail, Car, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -15,12 +15,10 @@ import {
 } from "@/components/ui/sheet";
 import { siteConfig } from "@/site.config";
 
-// Full menu structure matching desktop nav exactly
+// Mirror the desktop mega-menu structure exactly
 const mobileMenuItems = [
-  { label: "Home", href: "/" },
   {
     label: "Cars",
-    href: "/vehicles",
     sections: [
       {
         title: "Browse Cars",
@@ -51,13 +49,11 @@ const mobileMenuItems = [
       },
     ],
   },
-  { label: "About", href: "/about" },
   {
     label: "Pages",
-    href: "#",
     sections: [
       {
-        title: "Info",
+        title: "About",
         links: [
           { label: "About Us", href: "/about" },
           { label: "Contact", href: "/contact" },
@@ -81,6 +77,11 @@ const mobileMenuItems = [
       },
     ],
   },
+];
+
+const simpleLinks = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Import News", href: "/import-news" },
   { label: "Contact", href: "/contact" },
 ];
@@ -130,60 +131,61 @@ export function MobileNav() {
 
         <ScrollArea className="h-[calc(100vh-10rem)]">
           <nav className="flex flex-col py-2">
+            {/* Simple top links */}
+            {simpleLinks.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="block px-6 py-3 text-[15px] font-medium hover:bg-muted/50 transition-colors border-b border-border/40"
+              >
+                {item.label}
+              </Link>
+            ))}
+
+            {/* Expandable mega-menu sections (matching desktop) */}
             {mobileMenuItems.map((item) => (
               <div key={item.label} className="border-b border-border/40">
-                {item.sections ? (
-                  <>
-                    <button
-                      onClick={() => toggleExpanded(item.label)}
-                      className="flex w-full items-center justify-between px-6 py-3.5 text-left text-[15px] font-medium hover:bg-muted/50 transition-colors"
-                    >
-                      {item.label}
-                      <ChevronDown
-                        className={cn(
-                          "h-4 w-4 text-muted-foreground transition-transform duration-200",
-                          expandedItems.has(item.label) && "rotate-180"
-                        )}
-                      />
-                    </button>
-                    <div
-                      className={cn(
-                        "overflow-hidden transition-all duration-200",
-                        expandedItems.has(item.label)
-                          ? "max-h-[800px] opacity-100"
-                          : "max-h-0 opacity-0"
-                      )}
-                    >
-                      <div className="bg-muted/30 pb-2">
-                        {item.sections.map((section) => (
-                          <div key={section.title} className="px-6 pt-3">
-                            <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-primary">
-                              {section.title}
-                            </p>
-                            {section.links.map((link) => (
-                              <Link
-                                key={link.href + link.label}
-                                href={link.href}
-                                onClick={() => setOpen(false)}
-                                className="block py-2 pl-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                              >
-                                {link.label}
-                              </Link>
-                            ))}
-                          </div>
+                <button
+                  onClick={() => toggleExpanded(item.label)}
+                  className="flex w-full items-center justify-between px-6 py-3 text-left text-[15px] font-medium hover:bg-muted/50 transition-colors"
+                >
+                  {item.label}
+                  <ChevronDown
+                    className={cn(
+                      "h-4 w-4 text-muted-foreground transition-transform duration-200",
+                      expandedItems.has(item.label) && "rotate-180"
+                    )}
+                  />
+                </button>
+                <div
+                  className={cn(
+                    "overflow-hidden transition-all duration-200",
+                    expandedItems.has(item.label)
+                      ? "max-h-[800px] opacity-100"
+                      : "max-h-0 opacity-0"
+                  )}
+                >
+                  <div className="bg-muted/30 pb-2">
+                    {item.sections.map((section) => (
+                      <div key={section.title} className="px-6 py-2">
+                        <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-primary">
+                          {section.title}
+                        </p>
+                        {section.links.map((link) => (
+                          <Link
+                            key={link.href + link.label}
+                            href={link.href}
+                            onClick={() => setOpen(false)}
+                            className="block py-1.5 pl-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                          >
+                            {link.label}
+                          </Link>
                         ))}
                       </div>
-                    </div>
-                  </>
-                ) : (
-                  <Link
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="block px-6 py-3.5 text-[15px] font-medium hover:bg-muted/50 transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                )}
+                    ))}
+                  </div>
+                </div>
               </div>
             ))}
           </nav>

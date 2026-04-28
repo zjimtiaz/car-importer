@@ -13,7 +13,7 @@ interface VehicleGridProps {
   perPage?: number;
 }
 
-export function VehicleGrid({ cars, totalCount, perPage = 12 }: VehicleGridProps) {
+export function VehicleGrid({ cars, totalCount, perPage = 9 }: VehicleGridProps) {
   const [view, setView] = useState<"grid" | "list">("grid");
   const [page, setPage] = useState(1);
 

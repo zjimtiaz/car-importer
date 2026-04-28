@@ -80,7 +80,7 @@ export function Footer() {
 
       <div className="mx-auto max-w-7xl px-6 py-12">
         <div className="grid grid-cols-1 gap-2 lg:grid-cols-4 lg:gap-8">
-          {/* About — always visible */}
+          {/* About — always visible, full width on mobile */}
           <div className="pb-4 lg:pb-0">
             <Link href="/" className="flex items-center gap-2">
               <Car className="h-6 w-6 text-primary" />
@@ -101,59 +101,62 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links — accordion on mobile */}
-          <FooterAccordion title="Quick Links">
-            <ul className="space-y-2 text-sm">
-              {Object.entries(mainMenu).map(([key, href]) => (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    {key
-                      .split(" ")
-                      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-                      .join(" ")}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </FooterAccordion>
+          {/* 2-column accordion grid on mobile, individual columns on desktop */}
+          <div className="col-span-1 grid grid-cols-2 gap-2 lg:col-span-3 lg:grid-cols-3 lg:gap-8">
+            {/* Quick Links — accordion on mobile */}
+            <FooterAccordion title="Quick Links">
+              <ul className="space-y-2 text-sm">
+                {Object.entries(mainMenu).map(([key, href]) => (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      className="text-muted-foreground hover:text-foreground"
+                    >
+                      {key
+                        .split(" ")
+                        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                        .join(" ")}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </FooterAccordion>
 
-          {/* Popular Makes — accordion on mobile */}
-          <FooterAccordion title="Popular Makes">
-            <ul className="space-y-2 text-sm">
-              {popularMakes.map((make) => (
-                <li key={make.name}>
-                  <Link
-                    href={make.href}
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    {make.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </FooterAccordion>
+            {/* Popular Makes — accordion on mobile */}
+            <FooterAccordion title="Popular Makes">
+              <ul className="space-y-2 text-sm">
+                {popularMakes.map((make) => (
+                  <li key={make.name}>
+                    <Link
+                      href={make.href}
+                      className="text-muted-foreground hover:text-foreground"
+                    >
+                      {make.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </FooterAccordion>
 
-          {/* Resources — accordion on mobile */}
-          <FooterAccordion title="Resources">
-            <ul className="space-y-2 text-sm">
-              {Object.entries(contentMenu).map(([key, href]) => (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    {key
-                      .split(" ")
-                      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-                      .join(" ")}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </FooterAccordion>
+            {/* Resources — accordion on mobile */}
+            <FooterAccordion title="Resources">
+              <ul className="space-y-2 text-sm">
+                {Object.entries(contentMenu).map(([key, href]) => (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      className="text-muted-foreground hover:text-foreground"
+                    >
+                      {key
+                        .split(" ")
+                        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                        .join(" ")}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </FooterAccordion>
+          </div>
         </div>
 
         {/* Bottom bar */}

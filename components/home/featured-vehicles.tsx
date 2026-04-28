@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
 import { Button } from "@/components/ui/button";
 import { VehicleCard } from "@/components/cars/vehicle-card";
 import type { ParsedCar } from "@/lib/vehica";
@@ -13,6 +14,18 @@ interface FeaturedVehiclesProps {
 
 export function FeaturedVehicles({ cars }: FeaturedVehiclesProps) {
   const [activeTab, setActiveTab] = useState("all");
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "start",
+    slidesToScroll: 1,
+    containScroll: "trimSnaps",
+    breakpoints: {
+      "(min-width: 1024px)": { slidesToScroll: 2 },
+    },
+  });
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   // Get unique body types from the cars
   const bodyTypes = useMemo(() => {
@@ -43,19 +56,39 @@ export function FeaturedVehicles({ cars }: FeaturedVehiclesProps) {
               Hand-picked cars for the best value
             </p>
           </div>
-          <Button variant="ghost" asChild className="hidden sm:flex">
-            <Link href="/vehicles">
-              View All <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            <div className="hidden items-center gap-2 sm:flex">
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-9 w-9 rounded-full"
+                onClick={scrollPrev}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-9 w-9 rounded-full"
+                onClick={scrollNext}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+            <Button variant="ghost" asChild className="hidden sm:flex">
+              <Link href="/vehicles">
+                View All <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Body type tabs */}
         {bodyTypes.length > 1 && (
-          <div className="mb-6 flex flex-wrap gap-2">
+          <div className="mb-6 flex gap-2 overflow-x-auto no-scrollbar pb-1">
             <button
               onClick={() => setActiveTab("all")}
-              className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+              className={`shrink-0 whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
                 activeTab === "all"
                   ? "bg-primary text-primary-foreground"
                   : "bg-muted text-muted-foreground hover:text-foreground"
@@ -67,7 +100,7 @@ export function FeaturedVehicles({ cars }: FeaturedVehiclesProps) {
               <button
                 key={type}
                 onClick={() => setActiveTab(type)}
-                className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                className={`shrink-0 whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
                   activeTab.toLowerCase() === type.toLowerCase()
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted text-muted-foreground hover:text-foreground"
@@ -79,10 +112,17 @@ export function FeaturedVehicles({ cars }: FeaturedVehiclesProps) {
           </div>
         )}
 
-        <div className="grid gap-6 grid-cols-2 lg:grid-cols-4">
-          {filteredCars.slice(0, 8).map((car) => (
-            <VehicleCard key={car.id} car={car} />
-          ))}
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex gap-4">
+            {filteredCars.map((car) => (
+              <div
+                key={car.id}
+                className="min-w-0 shrink-0 basis-[75%] sm:basis-[48%] lg:basis-[calc(25%-12px)]"
+              >
+                <VehicleCard car={car} />
+              </div>
+            ))}
+          </div>
         </div>
 
         {filteredCars.length === 0 && (

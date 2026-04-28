@@ -59,7 +59,7 @@ export function BrandLogos({ makes }: BrandLogosProps) {
               <Link
                 key={make.id}
                 href={`/vehicles/${make.slug}`}
-                className="flex min-w-0 shrink-0 basis-[120px] flex-col items-center gap-1 rounded-lg px-4 py-3 transition-colors hover:bg-muted sm:basis-[140px] md:basis-[calc(14.285%-14px)]"
+                className="flex min-w-0 shrink-0 basis-[120px] flex-col items-center gap-1 rounded-lg px-4 py-3 transition-colors hover:bg-muted sm:basis-[140px] md:basis-[calc(20%-13px)]"
               >
                 <span className="whitespace-nowrap text-xl font-bold text-foreground/80 md:text-2xl">
                   {make.name}

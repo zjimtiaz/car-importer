@@ -24,6 +24,8 @@ interface FilterSidebarProps {
   transmissions: VehicaTaxonomyTerm[];
   conditions: VehicaTaxonomyTerm[];
   colors: VehicaTaxonomyTerm[];
+  currentMake?: string;
+  currentModel?: string;
 }
 
 function FilterControls({
@@ -34,6 +36,8 @@ function FilterControls({
   transmissions,
   conditions,
   colors,
+  currentMake,
+  currentModel,
 }: FilterSidebarProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -51,9 +55,27 @@ function FilterControls({
         params.delete("model");
       }
 
-      // Build clean URL for make/model
-      const make = params.get("make");
-      const model = params.get("model");
+      // Resolve make and model from params or path
+      let make = params.get("make") || (key !== "make" ? currentMake : null);
+      let model = params.get("model") || (key !== "make" && key !== "model" ? currentModel : null);
+
+      // If make is being set via the select
+      if (key === "make" && value && value !== "all") {
+        make = value;
+        model = null;
+      }
+      if (key === "make" && (!value || value === "all")) {
+        make = null;
+        model = null;
+      }
+      if (key === "model" && value && value !== "all") {
+        model = value;
+      }
+      if (key === "model" && (!value || value === "all")) {
+        model = null;
+      }
+
+      // Clean make/model from query params (they go in the path)
       params.delete("make");
       params.delete("model");
 
@@ -65,16 +87,16 @@ function FilterControls({
       const qs = params.toString();
       router.push(qs ? `${basePath}?${qs}` : basePath);
     },
-    [router, searchParams]
+    [router, searchParams, currentMake, currentModel]
   );
 
-  const selectedMakeSlug = searchParams.get("make");
+  const selectedMakeSlug = currentMake || searchParams.get("make");
 
   const clearFilters = useCallback(() => {
     router.push("/vehicles");
   }, [router]);
 
-  const hasFilters = searchParams.toString().length > 0;
+  const hasFilters = searchParams.toString().length > 0 || !!currentMake;
 
   return (
     <div className="space-y-5">
@@ -102,7 +124,7 @@ function FilterControls({
       <div>
         <Label className="mb-1.5 text-sm font-medium">Make</Label>
         <Select
-          value={searchParams.get("make") || "all"}
+          value={currentMake || searchParams.get("make") || "all"}
           onValueChange={(v) => updateFilter("make", v)}
         >
           <SelectTrigger>
@@ -123,7 +145,7 @@ function FilterControls({
       <div>
         <Label className="mb-1.5 text-sm font-medium">Model</Label>
         <Select
-          value={searchParams.get("model") || "all"}
+          value={currentModel || searchParams.get("model") || "all"}
           onValueChange={(v) => updateFilter("model", v)}
           disabled={!selectedMakeSlug}
         >

@@ -79,7 +79,7 @@ export function BodyTypeBrowse({ bodyTypes }: BodyTypeBrowseProps) {
                 <Link
                   key={bt.id}
                   href={`/vehicles?bodyType=${bt.slug}`}
-                  className="flex min-w-0 shrink-0 basis-[140px] flex-col items-center gap-3 rounded-lg border bg-card p-6 text-center transition-colors hover:border-primary hover:bg-primary/5 sm:basis-[160px] md:basis-[calc(25%-12px)] lg:basis-[calc(16.666%-14px)]"
+                  className="flex min-w-0 shrink-0 basis-[140px] flex-col items-center gap-3 rounded-lg border bg-card p-6 text-center transition-colors hover:border-primary hover:bg-primary/5 sm:basis-[160px] md:basis-[calc(25%-12px)] lg:basis-[calc(20%-13px)]"
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <Icon className="h-6 w-6" />
