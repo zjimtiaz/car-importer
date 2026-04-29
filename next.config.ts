@@ -44,8 +44,8 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/posts/:path*",
-        destination: "/import-news/:path*",
+        source: "/posts/:slug*",
+        destination: "/import-news/:slug*",
         permanent: true,
       },
       {
@@ -54,8 +54,8 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/cars/:path*",
-        destination: "/vehicles/:path*",
+        source: "/cars/:slug*",
+        destination: "/vehicles/:slug*",
         permanent: true,
       },
     ];
