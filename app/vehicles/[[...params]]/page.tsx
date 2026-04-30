@@ -299,7 +299,7 @@ async function CarDetail({ slug }: { slug: string }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <Section className="!pt-0">
+      <section className="pb-8 md:pb-12">
         <Container className="max-w-7xl">
           {/* Breadcrumb */}
           <nav className="mb-6 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
@@ -607,7 +607,7 @@ async function CarDetail({ slug }: { slug: string }) {
             </div>
           )}
         </Container>
-      </Section>
+      </section>
     </>
   );
 }
