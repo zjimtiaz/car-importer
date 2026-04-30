@@ -326,7 +326,7 @@ async function CarDetail({ slug }: { slug: string }) {
             <span className="text-foreground">{car.name}</span>
           </nav>
 
-          <div className="grid gap-8 lg:grid-cols-[1fr_380px] overflow-hidden">
+          <div className="grid gap-8 lg:grid-cols-[1fr_380px] lg:items-start overflow-hidden">
             {/* Left: Gallery + Tabbed Content */}
             <div className="space-y-8 overflow-hidden">
               <VehicleGallery images={car.gallery} alt={car.name} />
