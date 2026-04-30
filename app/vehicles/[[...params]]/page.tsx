@@ -299,10 +299,10 @@ async function CarDetail({ slug }: { slug: string }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="mx-auto max-w-7xl px-6 py-4 sm:px-8">
+      <div className="mx-auto max-w-7xl px-6 pb-8 sm:px-8">
         <div>
           {/* Breadcrumb */}
-          <nav className="mb-4 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
+          <nav className="py-2 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground">Home</Link>
             <ChevronRight className="h-3 w-3" />
             <Link href="/vehicles" className="hover:text-foreground">Vehicles</Link>
