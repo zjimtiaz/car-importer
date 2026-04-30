@@ -300,7 +300,7 @@ async function CarDetail({ slug }: { slug: string }) {
       />
 
       <section className="pb-8 md:pb-12">
-        <Container className="max-w-7xl">
+        <Container className="max-w-7xl pt-3">
           {/* Breadcrumb */}
           <nav className="mb-6 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground">Home</Link>
